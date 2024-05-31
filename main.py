@@ -34,7 +34,11 @@ class Karya:
     def add_karya(self, uuid: str, key: str):
 
         # Add to index map
-        new_idx = self.data.iloc[-1]["idx"]+1
+        len_data = self.data.shape[0]
+        if len_data == 0:
+            new_idx = 1
+        else: 
+            new_idx = self.data.iloc[-1]["idx"]+1
         encoded_data = self.model.encode([key])
         encoded_data = np.asarray(encoded_data.astype('float32'))
         self.index.add_with_ids(encoded_data, np.array([new_idx]))
